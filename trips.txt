@@ -1,0 +1,6 @@
+route_id,service_id,trip_id,trip_headsign,direction_id
+R13,DAILY,T13_A1,Nongkhamsean,0
+R13,DAILY,T13_A2,Nongkhamsean,0
+R13,DAILY,T13_A3,Nongkhamsean,0
+R13,DAILY,T13_A4,Nongkhamsean,0
+R13,DAILY,T13_A5,Nongkhamsean,0

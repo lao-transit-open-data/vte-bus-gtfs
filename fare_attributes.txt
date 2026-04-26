@@ -1,0 +1,2 @@
+fare_id,price,currency_type,payment_method,transfers,agency_id
+fare_r13,25000,LAK,0,0,VCSBE
