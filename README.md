@@ -1,4 +1,5 @@
-# Vientiane Capital GTFS Data (vte-bus-gtfs)
+# 🚌 Lao Transit Open Data (vte-bus-gtfs)
+### Part of the **Quick Route (QR)** initiative by [QRLao.org](https://qrlao.org)
 
 Vientiane City Bus General Transit Feed Specification (GTFS) data. Part of a research initiative to enhance public transport accessibility in Lao PDR.
 
