@@ -2,40 +2,40 @@
 <html lang="lo">
 <head>
     <meta charset="UTF-8">
-    <title>Bus.Slowork.la | Digital Twin Live</title>
+    <title>QRLao Research Lab | Data Node</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
         body { background: #050505; color: #00FF41; font-family: 'Space Mono', monospace; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #114411; border-radius: 10px; }
     </style>
 </head>
 <body class="h-screen flex flex-col p-4 overflow-hidden">
     <header class="mb-6 flex justify-between items-center border-b border-green-900/50 pb-4">
         <div>
-            <h1 class="text-xl font-bold tracking-tighter uppercase">VTE-Transit Digital Twin</h1>
-            <p class="text-[10px] text-blue-400">STATUS: CONNECTED TO GITHUB_PAGES</p>
+            <h1 class="text-xl font-bold tracking-tighter uppercase">QRLao Internal Node</h1>
+            <p class="text-[10px] text-blue-400 uppercase">System Status: Active Link</p>
         </div>
         <div id="clock" class="text-xl font-bold">00:00:00</div>
     </header>
 
     <main class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-hidden">
         <section class="glass p-4 flex flex-col overflow-hidden">
-            <h2 class="text-[10px] opacity-50 mb-2 uppercase">Live_Event_Stream</h2>
+            <h2 class="text-[10px] opacity-50 mb-2 uppercase">System_Event_Log</h2>
             <div id="terminal" class="flex-1 overflow-y-auto text-[11px] space-y-1 pr-2">
-                <div class="text-blue-400">>> Initializing connection to GitHub Pages...</div>
+                <div class="text-blue-400">>> Establishing data connection...</div>
             </div>
         </section>
 
         <section id="card-container" class="space-y-3 overflow-y-auto pr-2">
-            <!-- Active Bus Cards appear here -->
         </section>
     </main>
 
     <script>
-        // 1. ປ່ຽນ URL ນີ້ໃຫ້ເປັນ URL ທີ່ໄດ້ຈາກ GitHub Pages 
-        const PAGES_URL = "https://lao-transit-open-data.github.io/vte-bus-gtfs/";
-        
+        const PAGES_URL = "./"; 
         const terminal = document.getElementById('terminal');
         const cardContainer = document.getElementById('card-container');
 
@@ -49,7 +49,7 @@
 
         async function fetchGTFS(file) {
             const res = await fetch(`${PAGES_URL}${file}?t=${Date.now()}`);
-            if (!res.ok) throw new Error(`HTTP_${res.status} file: ${file}`);
+            if (!res.ok) throw new Error(`HTTP_${res.status} source: ${file}`);
             return await res.text();
         }
 
@@ -67,13 +67,15 @@
 
         async function startSystem() {
             try {
-                addLog("FETCHING: trips.txt", "text-blue-400");
+                addLog("FETCHING: Core Dataset [Trips]", "text-blue-400");
                 const trips = parseCSV(await fetchGTFS("trips.txt"));
-                addLog(`SUCCESS: Loaded ${trips.length} routes.`, "text-green-500");
+                addLog(`SUCCESS: ${trips.length} entries synchronized.`, "text-green-500");
 
-                addLog("FETCHING: stop_times.txt", "text-blue-400");
+                addLog("FETCHING: Schedule Matrix [StopTimes]", "text-blue-400");
                 const stopTimes = parseCSV(await fetchGTFS("stop_times.txt"));
-                addLog(`SUCCESS: Loaded ${stopTimes.length} stop schedules.`, "text-green-500");
+                addLog(`SUCCESS: ${stopTimes.length} sequences verified.`, "text-green-500");
+
+                addLog("System Monitoring: STANDBY", "text-blue-400");
 
                 // Start Live Scanning
                 setInterval(() => {
@@ -85,14 +87,15 @@
                     const arrivals = stopTimes.filter(s => s.arrival_time === now);
                     arrivals.forEach(item => {
                         const trip = trips.find(t => t.trip_id === item.trip_id);
-                        const route = trip ? trip.route_id : "BUS";
-                        addLog(`MATCH: Route ${route} >> ${item.stop_id}`, "text-yellow-400");
+                        const route = trip ? trip.route_id : "NODE";
+                        
+                        addLog(`SIGNAL_MATCH: ID-${route} detected at NODE-${item.stop_id}`, "text-yellow-400");
                         renderCard(route, item);
                     });
                 }, 1000);
 
             } catch (err) {
-                addLog(`CRITICAL: ${err.message}`, "text-red-500");
+                addLog(`CRITICAL_FAIL: ${err.message}`, "text-red-500");
             }
         }
 
@@ -107,10 +110,10 @@
             }
             card.innerHTML = `
                 <div class="flex justify-between text-[9px] opacity-50 mb-1">
-                    <span>ROUTE: ${route}</span>
-                    <span>TRIP: ${data.trip_id}</span>
+                    <span>UNIT_ID: ${route}</span>
+                    <span>SEQ_REF: ${data.trip_id}</span>
                 </div>
-                <div class="text-sm font-bold">Arrived at: ${data.stop_id}</div>
+                <div class="text-sm font-bold tracking-tight">NODE_REACHED: ${data.stop_id}</div>
                 <div class="mt-2 h-1 bg-white/10 rounded-full overflow-hidden">
                     <div class="h-full bg-green-500 w-full animate-pulse"></div>
                 </div>
