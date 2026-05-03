@@ -1,0 +1,9 @@
+{
+  "api_version": "1.0.0",
+  "last_updated": "2026-05-03",
+  "global_fares": {
+    "bus_standard": 25000,
+    "brt_standard": 30000,
+    "currency": "LAK"
+  }
+}
