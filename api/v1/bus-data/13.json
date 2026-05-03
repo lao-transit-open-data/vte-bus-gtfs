@@ -1,0 +1,13 @@
+{
+  "id": "13",
+  "name": "Route 13: CBS - Northern Bus Terminal",
+  "path": "Central Bus Station ➔ Talat Sao ➔ Patuxay ➔ 13 North Road ➔ Northern Bus Terminal",
+  "timetable": [
+    { "id": "V13-01", "d": "CBS", "t": "07:30", "a": "08:15" },
+    { "id": "V13-02", "d": "NBT", "t": "08:30", "a": "09:15" },
+    { "id": "V13-03", "d": "CBS", "t": "09:30", "a": "10:15" },
+    { "id": "V13-04", "d": "NBT", "t": "10:30", "a": "11:15" },
+    { "id": "V13-05", "d": "CBS", "t": "13:00", "a": "13:45" },
+    { "id": "V13-06", "d": "NBT", "t": "14:00", "a": "14:45" }
+  ]
+}
